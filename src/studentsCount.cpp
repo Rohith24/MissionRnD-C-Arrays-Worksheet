@@ -15,6 +15,87 @@ NOTES:
 
 #include <stdio.h>
 
+int binarySearch(int *, int, int, int);
+
 void * studentsCount(int *Arr, int len, int score, int *lessCount, int *moreCount) {
+
+	int index;
+
+	if (Arr != NULL&&len > 0){ //check for invalid
+
+
+		if (len == 1){			//for single element
+
+			if (Arr[0] == score)
+			{
+				*lessCount = 0;
+				*moreCount = 0;
+				return 0;
+			}
+			else if (Arr[0]>score)
+			{
+				*lessCount = 0;
+				*moreCount = 1;
+				return 0;
+			}
+			else
+			{
+				*lessCount = 1;
+				*moreCount = 0;
+				return 0;
+			}
+		}
+
+		index = binarySearch(Arr, score,0,len-1);
+
+		if (index != -1)
+		{
+			int count, count1 = 0;
+			for (count = 0; Arr[count] == score; count++)
+				count1++;
+			if (count1 == len){
+				*lessCount = 0;
+				*moreCount = 0;
+				return 0;
+			}
+			*lessCount = index;
+			*moreCount = len - index - 1;
+			return 0;
+		}
+		else
+		{
+			int count;
+
+			for (count = 0; count < len; count++) {
+				if (Arr[count]>score)
+					break;
+			}
+
+			*lessCount = count;
+			*moreCount = len - count;
+		}
+	}
 	return NULL;
+}
+
+int binarySearch(int *Arr, int searchEle, int start, int last){
+	int middle = (start + last) / 2;
+	if (start <= last){
+
+		if (Arr[middle] == searchEle)
+		{
+			return middle;
+		}
+
+		else if (Arr[middle] > searchEle){
+			last = middle - 1;
+		}
+		else
+		{
+			start = middle + 1;
+		}
+		return binarySearch(Arr, searchEle, start, last);
+	}
+	else
+		return -1;
 }
