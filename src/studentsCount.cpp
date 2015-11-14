@@ -23,29 +23,6 @@ void * studentsCount(int *Arr, int len, int score, int *lessCount, int *moreCoun
 
 	if (Arr != NULL&&len > 0){ //check for invalid
 
-
-		if (len == 1){			//for single element
-
-			if (Arr[0] == score)
-			{
-				*lessCount = 0;
-				*moreCount = 0;
-				return 0;
-			}
-			else if (Arr[0]>score)
-			{
-				*lessCount = 0;
-				*moreCount = 1;
-				return 0;
-			}
-			else
-			{
-				*lessCount = 1;
-				*moreCount = 0;
-				return 0;
-			}
-		}
-
 		index = binarySearch(Arr, score,0,len-1);
 
 		if (index != -1)
